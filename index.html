@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script> <!-- tinymce dependency -->
+  <script>
+  	tinymce.PluginManager.add('imageClick',(editor)=>{
+  	  editor.on('click',function(event){
+  	    const element = event.target;
+  	    //add code to open the internal toolbar
+  	  })
+  	})
+  	tinymce.init({
+  	  selector:'textarea',
+      skin: 'lightgray',
+      theme: 'modern',
+  	  plugins: 'link image paste autolink media lists imageClick',
+      toolbar: ['bold italic underline | alignleft aligncenter alignright alignjustify | link media image | undo redo '],
+  	});
+  </script>
+</head>
+<body>
+  <textarea>Next, get a free TinyMCE Cloud API key!</textarea>
+</body>
+</html>
