@@ -7,14 +7,43 @@
   <script>
 
     tinymce.PluginManager.add('imageClick',function(editor){
-      editor.on('click',function(event){
-        var element = event.target;
-        console.log(element);
-        if (element.tagName == 'IMG'){
-            //How to preview a pop over toolbar?
-            console.log("Image clicked");
-        }
-      })
+
+      var lastSelectedImage=undefined;
+
+      function addEvents() {
+
+        editor.on('click', function (e) {
+          if (lastSelectedImage && lastSelectedImage.src != e.element.src) {
+            lastSelectedImage = undefined;
+          }
+
+          // Set up the lastSelectedImage
+          if (isEditableImage(e.element)) {
+            lastSelectedImage = e.element;
+          }
+        });
+      }
+
+      function isEditableImage(img) {
+        var selectorMatched = editor.dom.is(img, 'img:not([data-mce-object],[data-mce-placeholder])');
+        return selectorMatched;
+      }
+
+      function addToolbars() {
+          var toolbarItems = editor.settings.myimagetools_toolbar;
+
+          if (!toolbarItems) {
+            toolbarItems = 'alignleft aligncenter alignright alignjustify';
+          }
+
+          editor.addContextToolbar(
+            isEditableImage,
+            toolbarItems
+          );
+      }
+
+      addToolbars()
+      addEvents()
     })
 
     tinymce.init({
