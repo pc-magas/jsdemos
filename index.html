@@ -6,6 +6,9 @@
   <script src="//cdn.tinymce.com/4/tinymce.min.js"></script> <!-- tinymce dependency -->
   <script>
   	tinymce.PluginManager.add('imageClick',(editor)=>{
+      editor.on('init', (args) => {
+         editor_id = args.target.id;
+      });
   	  editor.on('click',function(event){
   	    const element = event.target;
   	    //add code to open the internal toolbar
